@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assign Services</title>
+  <link rel="stylesheet" href="../Styles/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Background and base */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  padding: 20px;
+}
+
+/* Container for the full page */
+.container {
+  max-width: 750px;
+  margin: auto;
+}
+
+/* Card style (used for form and service list) */
+.card {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #00d4ff;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #00d4ff;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Select box styling */
+select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Button */
+button {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+/* Service list */
+.service-list {
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 6px;
+}
+
+/* Message when no customer selected */
+.empty-message {
+  text-align: center;
+  color: #ccc;
+  font-style: italic;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-tasks"></i> Assign Services to Customer</h1>
+    
+    <div class="card">
+      <form id="assignServiceForm">
+        <div class="form-group">
+          <label for="customerSelect"><i class="fas fa-user"></i> Select Customer</label>
+          <select id="customerSelect" required>
+            <option value="">-- Select a customer --</option>
+            <!-- populated dynamically -->
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="serviceType"><i class="fas fa-tag"></i> Service Type</label>
+          <select id="serviceType" required>
+            <option value="">-- Select service type --</option>
+            <option value="recurring">Recurring Service</option>
+            <option value="one-time">One-time Fee</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="servicePackage"><i class="fas fa-box"></i> Service Package</label>
+          <select id="servicePackage" required>
+            <option value="">-- Select a package --</option>
+            <!-- populated dynamically based on service type -->
+          </select>
+        </div>
+        
+        <button type="submit"><i class="fas fa-plus-circle"></i> Assign Service</button>
+      </form>
+    </div>
+    
+    <!-- Customer's Current Services -->
+    <div class="card">
+      <h2><i class="fas fa-list-alt"></i> Customer's Current Services</h2>
+      <div id="customerServices" class="service-list">
+        <!-- populated dynamically -->
+        <p class="empty-message">Select a customer to view their services</p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../Scripts/profiles.js"></script>
+  <script src="../Scripts/assign.js"></script>
+</body>
+</html>

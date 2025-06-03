@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(to right, #13270f, #203a43, #2c5364);
+    }
+
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(to right, #13270f, #203a43, #2c5364);
+      color: white;
+      height: 100vh;
+      overflow-y: auto;
+      backdrop-filter: blur(8px);
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      padding: 20px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 22px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: white;
+      transition: background 0.3s ease;
+      font-size: 16px;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(4, 162, 183, 0.3); /* لون hover هادي أزرق فاتح */
+    }
+
+    .content {
+      flex: 1;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Billing System</h2>
+    <a href="add-customer.html" target="mainFrame">➕ Add Customer</a>
+    <a href="search-customer.html" target="mainFrame">🔍 Search Customers</a>
+    <a href="invoices.html" target="mainFrame">📄 View Invoices</a>
+    <a href="profiles.html" target="mainFrame">🛠️ Profiles/Services</a>
+    <a href="assign.html" target="mainFrame">📦 Assign Services</a>
+    <a href="upload-cdr.html" target="mainFrame">⬆️ Upload CDR</a>
+    <a href="generate-invoice.html" target="mainFrame">🧾 Generate Invoice</a>
+    <a href="../index.html">🚪 Logout</a>
+  </div>
+
+  <div class="content">
+    <iframe name="mainFrame" src="add-customer.html"></iframe>
+  </div>
+</body>
+</html>
