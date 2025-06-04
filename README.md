@@ -67,18 +67,12 @@ Profile and services
 Usage and charges
 
 Tax and total cost
-
 Technologies Used
 Java Servlets
-
 REST APIs
-
 HTML/CSS/JavaScript (Frontend)
-
 iText (for PDF generation)
-
-PostgreSQL / MongoDB (for data persistence and logs)
-
+mysql 
 Future Enhancements
 Dockerize components (Web server, DB, Asterisk)
 
