@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fatora | Add Customer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;    
+    }
+    .container {
+      text-align: center;
+      animation: fadeIn 1.2s ease-in;
+      width: 630px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      width: 550px;
+
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #00adb5;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+      position: relative;
+    }
+
+    button:hover {
+      background-color: #007d84;
+    }
+
+    .toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      border-radius: 4px;
+      padding: 12px;
+      position: fixed;
+      z-index: 10;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      font-size: 16px;
+      transition: 0.5s;
+    }
+
+    .toast.show {
+      visibility: visible;
+    }
+
+    .toast.error {
+      background-color: #f44336;
+    }
+
+    .loading::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 3px solid white;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #successCheck {
+      display: none;
+      margin-top: 20px;
+      font-size: 40px;
+      color: #00ff94;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    small {
+      color: #ff4d4d;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1><i class="fas fa-user-plus"></i> Add New Customer</h1>
+    <div class="card">
+      <form id="addCustomerForm">
+        <div class="form-group">
+          <label for="name"><i class="fas fa-user"></i> Full Name</label>
+          <input type="text" id="name" placeholder="Enter full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+          <input type="text" id="phone" placeholder="Enter phone number" oninput="validatePhone(this)" required />
+          <small id="phoneError">Phone must be 10-15 digits</small>
+        </div>
+
+        <div class="form-group">
+          <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="email" placeholder="Enter email address" />
+        </div>
+
+        <div class="form-group">
+          <label for="profile"><i class="fas fa-id-card"></i> Billing Profile</label>
+          <select id="profile">
+            <option value="">-- Select a profile --</option>
+            <option value="Basic">Basic - $10</option>
+            <option value="Premium">Premium - $20</option>
+          </select>
+        </div>
+
+        <button type="submit" id="submitBtn"><i class="fas fa-save"></i> Add Customer</button>
+        <div id="successCheck"><i class="fas fa-check-circle"></i></div>
+        <div id="toast" class="toast">Customer added successfully</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function validatePhone(input) {
+      const phoneError = document.getElementById("phoneError");
+      const valid = /^[0-9]{10,15}$/.test(input.value);
+      phoneError.style.display = valid || input.value === "" ? "none" : "block";
+    }
+
+    const form = document.getElementById("addCustomerForm");
+    const toast = document.getElementById("toast");
+    const successCheck = document.getElementById("successCheck");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const profile = document.getElementById("profile").value;
+
+      if (!name || !phone || !profile) {
+        toast.textContent = "❌ Please fill in all required fields";
+        toast.className = "toast show error";
+        setTimeout(() => toast.className = "toast", 3000);
+        return;
+      }
+
+      const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+      const isDuplicate = customers.some(c => c.phone === phone || c.email === email);
+
+      if (isDuplicate) {
+        toast.textContent = "❌ Customer already exists";
+        toast.className = "toast show error";
+        setTimeout(() => toast.className = "toast", 3000);
+        return;
+      }
+
+      submitBtn.classList.add("loading");
+
+      setTimeout(() => {
+        customers.push({ id: Date.now(), name, phone, email, profile });
+        localStorage.setItem('customers', JSON.stringify(customers));
+        form.reset();
+        submitBtn.classList.remove("loading");
+
+        toast.textContent = "✅ Customer added successfully";
+        toast.className = "toast show";
+        successCheck.style.display = "block";
+
+        setTimeout(() => {
+          toast.className = "toast";
+          successCheck.style.display = "none";
+        }, 3000);
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

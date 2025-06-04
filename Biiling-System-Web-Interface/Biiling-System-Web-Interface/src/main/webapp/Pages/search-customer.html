@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Search Customers</title>
+  <link rel="stylesheet" href="../Styles/style.css" />
+  <style>
+    /* style.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  padding: 20px;
+}
+
+.form-container {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 650px;
+  margin: auto;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #00d4ff;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+.results-container {
+  margin-top: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Search for a Customer</h1>
+    <form id="searchForm">
+      <label for="searchQuery">Search by Name or Phone</label>
+      <input type="text" id="searchQuery" name="searchQuery" placeholder="Enter customer name or phone" required />
+      <button type="submit">Search</button>
+    </form>
+
+    <div id="searchResults" class="results-container">
+      <!-- Results will be displayed here dynamically -->
+    </div>
+  </div>
+
+  <script src="../Scripts/search-customer.js"></script>
+</body>
+</html>

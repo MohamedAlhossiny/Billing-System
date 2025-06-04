@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload CDR Data</title>
+  <link rel="stylesheet" href="../Styles/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* General body styling */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  padding: 20px;
+}
+
+/* Container layout */
+.container {
+  max-width: 750px;
+  margin: auto;
+}
+
+/* Card (box for form/results) */
+.card {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #00d4ff;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #00d4ff;
+}
+
+/* Form layout */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Select and file input */
+select,
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Button styling */
+button {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+/* Info text before form */
+.info-text {
+  font-style: italic;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+/* CSV format display */
+.form-info {
+  background-color: rgba(255, 255, 255, 0.07);
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 10px;
+  color: #e0e0e0;
+}
+
+.form-info pre {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+/* Results display */
+#processingResults {
+  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 15px;
+  border-radius: 6px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-upload"></i> Upload Call Detail Records (CDR)</h1>
+    
+    <div class="card">
+      <h2>Process Usage Data</h2>
+      <p class="info-text">
+        Upload a CDR file to process customer usage data for voice calls, SMS, and data. 
+        The system will apply BSCS rating rules to calculate charges.
+      </p>
+      
+      <form id="cdrUploadForm">
+        <div class="form-group">
+          <label for="customerSelect"><i class="fas fa-user"></i> Select Customer</label>
+          <select id="customerSelect" required>
+            <option value="">-- Select a customer --</option>
+            <!-- populated dynamically -->
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="cdrFile"><i class="fas fa-file-csv"></i> CDR File (CSV)</label>
+          <input type="file" id="cdrFile" accept=".csv" required />
+        </div>
+        
+        <div class="form-info">
+          <p><strong>Expected CSV Format:</strong></p>
+          <pre>type,duration,count,MB,timestamp
+voice,120,0,0,2023-05-01T10:30:00
+sms,0,10,0,2023-05-01T14:20:00
+data,0,0,500,2023-05-01T18:15:00</pre>
+        </div>
+        
+        <button type="submit"><i class="fas fa-upload"></i> Upload & Process</button>
+      </form>
+    </div>
+    
+    <!-- Results section, shown after processing -->
+    <div id="resultsContainer" class="card" style="display: none;">
+      <h2><i class="fas fa-chart-line"></i> Processing Results</h2>
+      <div id="processingResults"></div>
+    </div>
+  </div>
+  
+  <script src="../Scripts/profiles.js"></script>
+  <script src="../Scripts/upload-cdr.js"></script>
+</body>
+</html>
