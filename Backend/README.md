@@ -45,7 +45,7 @@ Ensure your application server is configured to connect to your MySQL database.
 
 ## API Endpoints
 
-The API endpoints are typically accessible at a base URL like `/billing-api/api` after deployment, depending on your server configuration and the context path of the deployed application.
+The API endpoints are typically accessible at a base URL like `/billing/api` after deployment, depending on your server configuration and the context path of the deployed application.
 
 ### Customer Endpoints (`/customer`)
 
